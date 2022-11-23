@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import myweb.secondboard.domain.Member;
 import myweb.secondboard.domain.MemberUploadFile;
 import myweb.secondboard.domain.Player;
+import myweb.secondboard.domain.ResultTemp;
 import myweb.secondboard.dto.FindPasswordForm;
 import myweb.secondboard.dto.MemberSaveForm;
 import myweb.secondboard.dto.MemberUpdateForm;
@@ -85,8 +86,9 @@ public class MemberController {
     model.addAttribute("form",form);
 
     List<Player> playerList = playerService.findByMemberId(member.getId());
+    List<Player> playerAfterList = playerService.findByAfterMemberId(member.getId());
     model.addAttribute("playerList", playerList);
-
+    model.addAttribute("afterPlayerList", playerAfterList);
 //    System.out.println("playerList = " + playerList);
 
     return "members/profileHome";

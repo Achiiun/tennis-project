@@ -5,14 +5,18 @@ import lombok.RequiredArgsConstructor;
 import myweb.secondboard.domain.Matching;
 import myweb.secondboard.domain.Member;
 import myweb.secondboard.domain.Player;
+import myweb.secondboard.domain.ResultTemp;
 import myweb.secondboard.dto.PlayerAddForm;
 import myweb.secondboard.repository.MatchingRepository;
 import myweb.secondboard.repository.MemberRepository;
 import myweb.secondboard.repository.PlayerRepository;
+import myweb.secondboard.repository.ResultTempRepository;
+import myweb.secondboard.web.MatchingStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -39,6 +43,10 @@ public class PlayerService {
 
   public List<Player> findByMemberId(Long memberId) {
     return playerRepository.findByMemberId(memberId).stream().filter(list -> list.getMatching().getGameResult() != null).toList();
+  }
+
+  public List<Player> findByAfterMemberId(Long memberId) {
+    return playerRepository.findByMemberId(memberId).stream().filter(list -> list.getMatching().getMatchingStatus().name() == "AFTER").toList();
   }
 
   public List<Player> findOne(Long memberId) {

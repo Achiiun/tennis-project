@@ -16,4 +16,5 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
   Optional<Player> exist(@Param("matchingId") Long matchingId, @Param("memberId") Long memberId);
 
  List<Player> findByMemberId(Long memberId);
+
 }
